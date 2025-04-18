@@ -2,18 +2,22 @@
 
 A comprehensive guide to set up, develop, and deploy the TREP Monitor Platform: a serverless system that receives images via Telegram, processes them with Azure Functions, and stores them in Azure Blob Storage. 
 
----
+
 
 ## 📋 Prerequisites
 
 Before you begin, ensure you have:
 
-- **Git** installed and configured.
-- **Azure CLI** (`az`) logged into your subscription.
-- **Terraform** (v1.0+) installed.
-- **Python** (3.10 or higher).
-- **Azure Functions Core Tools** (`func`).
-- A **Telegram account** and access to **BotFather**.
+| Tool                                  | Check Command                         | Installation / Configuration                                                                                  |
+|---------------------------------------|---------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| **Git**                               | `git --version`                       | [Install & configure Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)                      |
+| **Azure CLI (az)**                    | `az --version`                        | [Install Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) · [Authenticate](https://learn.microsoft.com/en-us/cli/azure/authenticate-azure-cli) |
+| **Terraform (v1.0+)**                 | `terraform version`                   | [Install Terraform CLI](https://learn.hashicorp.com/tutorials/terraform/install-cli)                           |
+| **Python (3.10+)**                    | `python --version`<br>`python3 --version` | [Download Python](https://www.python.org/downloads/)                                                           |
+| **Azure Functions Core Tools (func)** | `func --version`                      | [Install Azure Functions Core Tools](https://learn.microsoft.com/en-us/azure/azure-functions/functions-run-local) |
+| **Telegram & BotFather**              | Chat with `@BotFather`                | [Telegram BotFather guide](https://core.telegram.org/bots#botfather)                                          |
+
+<br>
 
 ---
 
