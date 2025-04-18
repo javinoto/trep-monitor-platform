@@ -61,8 +61,7 @@ resource "azurerm_function_app" "func" {
   app_settings = {
     FUNCTIONS_WORKER_RUNTIME = "python"
     AzureWebJobsStorage      = azurerm_storage_account.sa.primary_connection_string
-    # TELEGRAM_BOT_TOKEN debe añadirse en el portal o vía pipeline
-    TELEGRAM_BOT_TOKEN       = "<YOUR_BOT_TOKEN>"
+    TELEGRAM_BOT_TOKEN       = var.telegram_bot_token
   }
 
   tags = var.tags

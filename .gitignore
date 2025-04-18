@@ -8,6 +8,9 @@ local.settings.json
 ### dotenv ###
 .env
 
+# Terraform variable overrides
+terraform.tfvars
+
 ### Linux ###
 *~
 
