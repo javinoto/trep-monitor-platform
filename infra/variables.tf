@@ -16,6 +16,12 @@ variable "storage_sku" {
   default     = "Standard_LRS"
 }
 
+variable "telegram_bot_token" {
+  description = "Telegram bot API token"
+  type        = string
+  sensitive   = true
+}
+
 variable "tags" {
   description = "Tags to apply to all resources"
   type        = map(string)
