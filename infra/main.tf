@@ -21,9 +21,9 @@ resource "azurerm_storage_account" "sa" {
 
 # 3. Blob Container for images
 resource "azurerm_storage_container" "images" {
-  name                  = "telegram-images"
-  storage_account_name  = azurerm_storage_account.sa.name
-  container_access_type = "private"
+  name                    = "telegram-images"
+  storage_account_id      = azurerm_storage_account.sa.id
+  container_access_type   = "private"
 }
 
 # 4. App Service Plan (for Functions)
