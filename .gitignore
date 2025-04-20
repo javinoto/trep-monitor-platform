@@ -11,18 +11,21 @@ local.settings.json
 # Terraform variable overrides
 terraform.tfvars
 
-# Terraform
-.terraform/
-.terraform/**
+# Terraform dirs (cualquiera en cualquier nivel)
 **/.terraform/
 **/.terraform/**
+
+# Lock file de Terraform
+**/.terraform.lock.hcl
+
+# State files
 *.tfstate
 *.tfstate.backup
+
+# Logs y overrides
 crash.log
 override.tf
 override.tf.json
-*/.terraform.lock.hcl
-*/.terraform/**
 
 # Terraform states and logs
 *.tfstate
