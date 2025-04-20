@@ -11,6 +11,26 @@ local.settings.json
 # Terraform variable overrides
 terraform.tfvars
 
+# Terraform
+.terraform/
+.terraform/**
+**/.terraform/
+**/.terraform/**
+*.tfstate
+*.tfstate.backup
+crash.log
+override.tf
+override.tf.json
+*/.terraform.lock.hcl
+*/.terraform/**
+
+# Terraform states and logs
+*.tfstate
+*.tfstate.backup
+crash.log
+override.tf*
+override.tf.json
+
 ### Linux ###
 *~
 
