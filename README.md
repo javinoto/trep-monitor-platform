@@ -68,6 +68,12 @@ trep-monitor-platform/
    ```bash
    cp infra/terraform.tfvars.example infra/terraform.tfvars
    ```
+
+   Get `subscription-id`:
+   ```bash
+   az account list --output table
+   ```
+
 2. **Edit** `infra/terraform.tfvars`:
    ```hcl
    prefix               = "trepmon"
@@ -86,6 +92,11 @@ trep-monitor-platform/
    - `resource_group_name`
    - `function_app_url`
    - `storage_connection_string`
+
+5. **Get `storage_connection_string`**:
+   ```bash
+   terraform output -raw storage_connection_string
+   ```
 
 ---
 
