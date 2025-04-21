@@ -1,5 +1,15 @@
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 4.26.0"
+    }
+  }
+}
+
 provider "azurerm" {
   features {}
+  subscription_id = var.subscription_id
 }
 
 # 1. Resource Group
@@ -27,31 +37,32 @@ resource "azurerm_storage_container" "images" {
 }
 
 # 4. App Service Plan (for Functions)
-resource "azurerm_app_service_plan" "plan" {
+resource "azurerm_service_plan" "plan" {
   name                = "${var.prefix}-plan"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
 
-  sku {
-    tier = "Dynamic"
-    size = "Y1"
-  }
+  os_type  = "Linux"
+  sku_name = "Y1"    # Consumption plan
 
   tags = var.tags
 }
 
 # 5. Function App
-resource "azurerm_function_app" "func" {
+resource "azurerm_linux_function_app" "func" {
   name                       = "${var.prefix}-func"
   location                   = var.location
   resource_group_name        = azurerm_resource_group.rg.name
-  app_service_plan_id        = azurerm_app_service_plan.plan.id
+  service_plan_id            = azurerm_service_plan.plan.id
   storage_account_name       = azurerm_storage_account.sa.name
   storage_account_access_key = azurerm_storage_account.sa.primary_access_key
-  version                    = "~4"
+
+  functions_extension_version = "~4"
 
   site_config {
-    linux_fx_version = "Python|3.10"
+    application_stack {
+      python_version = "3.10"
+    }
   }
 
   identity {

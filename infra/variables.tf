@@ -22,6 +22,11 @@ variable "telegram_bot_token" {
   sensitive   = true
 }
 
+variable "subscription_id" {
+  description = "Azure Subscription ID"
+  type        = string
+}
+
 variable "tags" {
   description = "Tags to apply to all resources"
   type        = map(string)

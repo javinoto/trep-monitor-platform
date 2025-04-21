@@ -5,7 +5,7 @@ output "resource_group_name" {
 
 output "function_app_url" {
   description = "Base hostname of the Function App"
-  value       = azurerm_function_app.func.default_hostname
+  value       = azurerm_linux_function_app.func.default_hostname
 }
 
 output "storage_connection_string" {
