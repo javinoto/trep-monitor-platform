@@ -172,6 +172,13 @@ trep-monitor-platform/
 ## 🚀 3. Deployment to Azure
 
 1. **Publish Function**:
+   Verify the the name function in `/functions`
+   ```bash
+   terraform output function_app_url
+   ```
+   - The function app url will be `trepmon-func.azurewebsites.net`
+   - THe name of the function will be `trepmon-func`
+
    ```bash
    cd functions
    func azure functionapp publish <FUNCTION_APP_NAME>
