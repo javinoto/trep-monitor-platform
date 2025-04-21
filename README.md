@@ -108,7 +108,7 @@ trep-monitor-platform/
 
 1. **Configure local.settings**:
    ```bash
-   cd functions/process-telegram-image
+   cd functions/process_telegram_image
    cp local.settings.json.template local.settings.json
    ```
    Edit `local.settings.json`:
@@ -124,8 +124,9 @@ trep-monitor-platform/
    ```
 
 2. **Create & activate virtual environment**:
+
+   Execute from `/functions`:
    ```bash
-   cd ..
    python3 -m venv venv
    source venv/bin/activate   # Windows: venv\Scripts\activate
    ```
@@ -143,13 +144,20 @@ trep-monitor-platform/
 
 5. **Test with cURL or Postman**:
    
-   Open a new bash window
+   Open a new shell window
    ```bash
    curl -X POST http://localhost:7075/api/process_telegram_image \
      -H "Content-Type: application/json" \
      -d '{"test":"ping"}'
    ```
    - The function should return `OK`.
+
+   Test with telegram payload:
+   ```bash
+   curl -X POST http://localhost:7075/api/process_telegram_image \
+     -H "Content-Type: application/json" \
+     -d '{"message":{"photo":[{"file_id":"TEST_ID"}]}}'
+   ```
 
 6. **(Optional) Verify via web browser**  
    Access to:
@@ -165,13 +173,13 @@ trep-monitor-platform/
 
 1. **Publish Function**:
    ```bash
-   cd functions/process-telegram-image
+   cd functions
    func azure functionapp publish <FUNCTION_APP_NAME>
    ```
 2. **Set up Telegram Webhook**:
    ```bash
    curl -X POST "https://api.telegram.org/bot<YOUR_TELEGRAM_BOT_TOKEN>/setWebhook" \
-        -d "url=https://<FUNCTION_APP_URL>/api/process-telegram-image"
+        -d "url=https://<FUNCTION_APP_URL>/api/process_telegram_image"
    ```
    - Replace `<FUNCTION_APP_URL>` with the hostname from Terraform output.
 

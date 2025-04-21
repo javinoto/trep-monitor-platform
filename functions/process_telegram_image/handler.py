@@ -14,10 +14,20 @@ CONTAINER = "telegram-images"
 
 def get_file_path(file_id: str) -> str:
     """Retrieve file path from Telegram API."""
-    response = requests.get(
-        f"https://api.telegram.org/bot{TOKEN}/getFile?file_id={file_id}"
-    ).json()
-    return response["result"]["file_path"]
+    url = f"https://api.telegram.org/bot{TOKEN}/getFile?file_id={file_id}"
+    response = requests.get(url)
+
+    if response.status_code != 200:
+        logging.error(f"Telegram API request failed: {response.status_code} - {response.text}")
+        raise ValueError("Failed to contact Telegram API")
+
+    data = response.json()
+
+    if "result" not in data:
+        logging.error(f"Unexpected Telegram API response: {data}")
+        raise ValueError("Invalid file_id or malformed response from Telegram")
+
+    return data["result"]["file_path"]
 
 def download_image(file_path: str) -> bytes:
     """Download image content from Telegram servers."""
