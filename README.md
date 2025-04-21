@@ -43,19 +43,23 @@ Before you begin, ensure you have:
 ```
 trep-monitor-platform/
 ├── .gitignore
-├── README.md                    # This guide
-├── infra/                       # Terraform IaC
+├── README.md                            # This guide
+├── .env.template                        # Example of env vars (if used globally)
+├── functions/                           # Azure Functions app
+│   ├── host.json                        # Azure Functions host config
+│   ├── local.settings.json              # Local dev settings (ignored)
+│   ├── requirements.txt                 # Python dependencies for functions
+│   └── process_telegram_image/          # Telegram image processor
+│       ├── __init__.py                  # Function entry point
+│       ├── function.json                # HTTP trigger binding
+│       ├── handler.py                   # Business logic
+│       ├── local.settings.json.template # Template for local config
+│       └── venv/                        # Optional local virtualenv
+├── infra/                               # Infrastructure as Code (Terraform)
 │   ├── main.tf
-│   ├── variables.tf
 │   ├── outputs.tf
+│   ├── variables.tf
 │   └── terraform.tfvars.example
-├── functions/                   # Azure Functions code
-│   └── process-telegram-image/
-│       ├── __init__.py          # Entry point
-│       ├── handler.py           # Processing logic
-│       ├── function.json        # HTTP trigger binding
-│       ├── requirements.txt     # Python deps
-│       └── local.settings.json.template
 └── docs/                        # Additional documentation
     └── architecture.md
 ```
@@ -112,7 +116,7 @@ trep-monitor-platform/
    {
      "IsEncrypted": false,
      "Values": {
-       "AzureWebJobsStorage": "<storage_connection_string>",
+       "AzureWebJobsStorage": "<STORAGE_CONNECTION_STRING>",
        "FUNCTIONS_WORKER_RUNTIME": "python",
        "TELEGRAM_BOT_TOKEN": "<YOUR_TELEGRAM_BOT_TOKEN>"
      }
@@ -121,6 +125,7 @@ trep-monitor-platform/
 
 2. **Create & activate virtual environment**:
    ```bash
+   cd ..
    python3 -m venv venv
    source venv/bin/activate   # Windows: venv\Scripts\activate
    ```
@@ -132,17 +137,27 @@ trep-monitor-platform/
 
 4. **Run the Function locally**:
    ```bash
-   func host start
+   func start --verbose --port 7075
    ```
-   - Listening at `http://localhost:7071/api/process-telegram-image`
+   - Listening at `http://localhost:7075/api/process_telegram_image`
 
 5. **Test with cURL or Postman**:
+   
+   Open a new bash window
    ```bash
-   curl -X POST http://localhost:7071/api/process-telegram-image \
-        -H "Content-Type: application/json" \
-        -d '{"message": {"photo": [{"file_id": "TEST_ID"}]}}'
+   curl -X POST http://localhost:7075/api/process_telegram_image \
+     -H "Content-Type: application/json" \
+     -d '{"test":"ping"}'
    ```
    - The function should return `OK`.
+
+6. **(Optional) Verify via web browser**  
+   Access to:
+   ```
+   http://localhost:7075/api/process_telegram_image
+   ```
+   If everything is correct, you will see the message:
+     > 🔍 This endpoint is active and ready to receive POST requests from Telegram.
 
 ---
 
@@ -192,4 +207,3 @@ This project is licensed under the **MIT License**. See [LICENSE](./LICENSE) for
 ---
 
 _For questions or support, open an issue in GitHub or contact the maintainers._
-
