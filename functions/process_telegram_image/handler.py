@@ -31,14 +31,28 @@ def upload_to_blob(image_content: bytes, file_name: str) -> None:
     blob_client.upload_blob(image_content, overwrite=True)
 
 def handle_request(req: func.HttpRequest) -> func.HttpResponse:
-    """Process incoming Telegram webhook."""
-    update = req.get_json()
-    photo = update.get("message", {}).get("photo")
+    """Process incoming Telegram webhook or provide GET confirmation."""
+    
+    if req.method == "GET":
+        return func.HttpResponse(
+            "🔍 This endpoint is active and ready to receive POST requests from Telegram.",
+            status_code=200
+        )
 
-    if photo:
-        file_id = photo[-1]["file_id"]
-        file_path = get_file_path(file_id)
-        image_content = download_image(file_path)
-        upload_to_blob(image_content, f"{file_id}.jpg")
+    try:
+        update = req.get_json()
+        photo = update.get("message", {}).get("photo")
 
-    return func.HttpResponse("OK")
+        if photo:
+            file_id = photo[-1]["file_id"]
+            file_path = get_file_path(file_id)
+            image_content = download_image(file_path)
+            upload_to_blob(image_content, f"{file_id}.jpg")
+
+        return func.HttpResponse("✅ Image processed successfully.", status_code=200)
+
+    except ValueError:
+        return func.HttpResponse("❌ Invalid JSON in request.", status_code=400)
+
+    except Exception as e:
+        return func.HttpResponse(f"🚨 Internal server error: {str(e)}", status_code=500)
