@@ -1,8 +1,8 @@
 {
   "IsEncrypted": false,
   "Values": {
-    "AzureWebJobsStorage": "<STORAGE_CONNECTION_STRING>",
+    "AzureWebJobsStorage": "<STORAGE_CONNECTION_STRING>",       # Example: "DefaultEndpointsProtocol=https;AccountName=trepmonsa;AccountKey=XXXXXXXXXXXXXXXXXXXX;EndpointSuffix=core.windows.net"
     "FUNCTIONS_WORKER_RUNTIME": "python",
-    "TELEGRAM_BOT_TOKEN": "<YOUR_TELEGRAM_BOT_TOKEN>"           # Example: "1234567890:AABBccDDeeFFITiFvbH5EeSefctjcAoCeGM" (delete this)
+    "TELEGRAM_BOT_TOKEN": "<YOUR_TELEGRAM_BOT_TOKEN>"           # Example: "1234567890:AABBccDDeeFFITiFvbH5EeSefctjcAoCeGM"
   }
 }
