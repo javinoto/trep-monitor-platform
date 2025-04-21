@@ -78,6 +78,7 @@ trep-monitor-platform/
    ```bash
    cd infra
    terraform init
+   terraform plan
    terraform apply -auto-approve
    ```
 4. **Record outputs**:
