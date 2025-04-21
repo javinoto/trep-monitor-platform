@@ -72,6 +72,7 @@ trep-monitor-platform/
    ```hcl
    prefix               = "trepmon"
    location             = "eastus"
+   telegram_bot_token   = "<YOUR_SUBSCRIPTION_ID>"
    telegram_bot_token   = "<YOUR_TELEGRAM_BOT_TOKEN>"
    ```
 3. **Initialize & Apply**:
