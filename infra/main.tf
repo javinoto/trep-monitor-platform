@@ -73,7 +73,17 @@ resource "azurerm_linux_function_app" "func" {
     FUNCTIONS_WORKER_RUNTIME = "python"
     AzureWebJobsStorage      = azurerm_storage_account.sa.primary_connection_string
     TELEGRAM_BOT_TOKEN       = var.telegram_bot_token
+    APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.appinsights.connection_string
   }
 
   tags = var.tags
+}
+
+# 6. Insights App for monitoring
+resource "azurerm_application_insights" "appinsights" {
+  name                = "${var.prefix}-ainsights"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.rg.name
+  application_type    = "web"
+  tags                = var.tags
 }
